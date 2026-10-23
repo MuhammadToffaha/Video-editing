@@ -6,7 +6,6 @@ Main repo for short-form video editing (Reels / TikTok / Shorts).
 |---|---|
 | `.claude/skills/short-form-video-editor/` | Claude skill: captions + motion graphics + SFX + logo pipeline (SKILL.md, scripts, template, scene patterns) |
 | `dist/short-form-video-editor.zip` | Packaged skill, ready to upload/install |
-| `projects/glow-kbeauty-reel-en/` | Same reel dubbed to English with a synthetic voice + Wav2Lip lip-sync, incl. `out/glow-kbeauty-reel-en.mp4` |
 | `projects/glow-kbeauty-reel/` | First project: Glow Cosmetics K-beauty announcement (Egyptian Arabic, 57 s) incl. final `out/glow-kbeauty-reel.mp4` |
 
 New video: follow `.claude/skills/short-form-video-editor/SKILL.md` (copy `template/` into `projects/<name>/`).
