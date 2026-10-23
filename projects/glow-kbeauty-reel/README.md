@@ -21,7 +21,7 @@ LAST_SRC_FRAME=1657 scripts/02_render_all.sh                # headless Chromium,
 node scripts/render.mjs cues work/cues.json && python3 -I scripts/sfx.py work/cues.json work/sfx.wav
 OUT=out/glow-kbeauty-reel.mp4 scripts/03_mix_and_encode.sh
 ```
-Needs: ffmpeg, Node + Playwright (Chromium), Python + numpy/Pillow, `npm i`. Reusable version of this pipeline: `../../skills/short-form-video-editor`.
+Needs: ffmpeg, Node + Playwright (Chromium), Python + numpy/Pillow, `npm i`. Reusable version of this pipeline: `../../.claude/skills/short-form-video-editor`.
 
 ## Editing the content
 - Captions/timing: `data/transcript.source.json` (phrase start/end + text, `*` marks key words).

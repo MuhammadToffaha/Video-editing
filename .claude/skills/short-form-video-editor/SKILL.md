@@ -1,7 +1,19 @@
 ---
 name: short-form-video-editor
+argument-hint: "[optional: language, brand colour, style notes, logo attached as image]"
 description: Turn a talking-head / spoken video into a polished, high-retention Reel/TikTok/Short - word-synced captions (Arabic/RTL and English), animated key-word callouts, infographics/diagrams/UI cards timed to what is said, camera punch-ins, brand logo placement, subtle synthesized SFX, loudness-normalized audio. Use when the user attaches a video and asks to edit it professionally, add captions/motion graphics/infographics/SFX/logo, or make a reel/short from it. Works fully offline in the cloud sandbox (ffmpeg + headless Chromium + GSAP + sherpa-onnx Whisper).
 ---
+
+# AUTOPILOT - what to do when the user types `/short-form-video-editor`
+The user uploads a video (and optionally a logo image) and types the command. Do the WHOLE job without asking questions; only stop if something truly blocks you (no video found, no ffmpeg). Extra text after the command = style/brand notes, apply them.
+
+1. **Find inputs**: newest video in the session uploads (`ls -t /root/.claude/uploads/*/*.{mp4,mov,webm}` or the path given in the message); logo = an attached image if any (no logo -> skip watermark/hero/outro-logo, use a clean text-free outro). Language = auto-detect with `asr_chunks.py ... auto`.
+2. **Locate the toolkit**: this skill's folder (the directory containing this SKILL.md) holds `template/`. Work in a new project folder: inside the Video-editing repo clone as `projects/<slug>-<YYYYMMDD>/` when that repo is in the session, otherwise in the scratchpad. `cp -r template/. <project>/`.
+3. **Check/install deps** (once): `ffmpeg`, Node + Playwright Chromium (`/opt/pw-browsers`, never run `playwright install`), `pip install numpy pillow sherpa-onnx`, `scripts/fetch_asr_model.sh`. No network for huggingface; GitHub releases + npm + PyPI work.
+4. Run the **Workflow** below end to end, making design decisions yourself (brand colour from the logo; otherwise coral/teal tech palette; scenes chosen from `reference/scene-patterns.md` to fit what is actually said).
+5. **Deliver**: `SendUserFile` the mp4 (display render), then a short summary: specs, what graphics were added, LOW-CONFIDENCE transcript spots to verify by ear, footage-resolution caveat, "audio not auditioned". Save the project (without `work/`) and the final mp4 into the repo and push to the session's designated branch (or `main` if none was given). Never create a PR unless asked.
+6. Expect ~15-25 min for a 60 s video (transcription ~3 min, rendering ~4 min, encoding ~2 min). Tell the user at the start in one line, then work silently until done.
+
 
 # Short-form video editor (captions + motion graphics + SFX)
 
