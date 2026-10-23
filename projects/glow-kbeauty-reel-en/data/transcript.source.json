@@ -1,0 +1,82 @@
+{
+ "_note": "English dub phrases; start/end = actual TTS speech span",
+ "phrases": [
+  [
+   0.15,
+   3.451,
+   "Love *Korean skincare? Want to try it, but can't choose?"
+  ],
+  [
+   3.87,
+   4.539,
+   "Watch this."
+  ],
+  [
+   5.11,
+   7.907,
+   "Today, meet a *new *addition at Glow Cosmetics Store."
+  ],
+  [
+   8.49,
+   10.464,
+   "A *special collection of Korean skincare."
+  ],
+  [
+   10.91,
+   16.197,
+   "You'll find plenty of choices from well-known Korean brands, like *COSRX|Cosrex, *Dr. Althea|Doctor Althea and *Axis-Y|Axis Y."
+  ],
+  [
+   16.67,
+   20.019,
+   "and many more skincare products, each with its own *benefits."
+  ],
+  [
+   21.27,
+   24.103,
+   "*Most importantly, choose the *right product for your skin,"
+  ],
+  [
+   24.38,
+   26.423,
+   "not just because it's *trending or *popular."
+  ],
+  [
+   26.78,
+   29.729,
+   "At Glow, it's about *more than just supplying products."
+  ],
+  [
+   30.67,
+   33.811,
+   "We make sure our products are *authentic, from *trusted sources,"
+  ],
+  [
+   34.21,
+   37.624,
+   "while maintaining the *quality of our selections and presentation."
+  ],
+  [
+   38.52,
+   41.133,
+   "Above all, you'll get help *understanding the product,"
+  ],
+  [
+   41.57,
+   44.758,
+   "its *ingredients, its *use, and whether it suits your skin."
+  ],
+  [
+   45.92,
+   50.329,
+   "This isn't Glow's last addition, just a *step toward a *better experience, day after day."
+  ],
+  [
+   50.99,
+   54.255,
+   "Every new step at Glow aims to earn your *trust, always."
+  ]
+ ],
+ "max_chars": 22,
+ "max_words": 4
+}

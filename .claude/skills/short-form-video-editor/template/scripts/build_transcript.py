@@ -23,20 +23,21 @@ for pi, (a, b, text) in enumerate(src["phrases"]):
         if env[v] < 0.6 * np.mean(env[max(0, c - 20):c + 20]): edges[k] = v / 100
     for k, t in enumerate(toks):
         key = t.startswith("*") or t.startswith("و‏*")
-        clean = t.replace("*", "")
+        clean = t.replace("*", "").split("|")[0]
         words.append(dict(i=len(words), p=pi, text=clean, key=bool(key), start=round(float(edges[k]), 3), end=round(float(edges[k+1]), 3)))
     phrases.append(dict(p=pi, start=a, end=b))
 
-# caption chunks: balanced split, <=4 words and <=26 chars per chunk, never across phrases
+# caption chunks: balanced split, <=MAXW words and <=MAXC chars per chunk (set "max_chars"/"max_words" in the source json; English ~22/4), never across phrases
+MAXC = src.get("max_chars", 27); MAXW = src.get("max_words", 4)
 chunks = []
 for ph in phrases:
     ids = [wd["i"] for wd in words if wd["p"] == ph["p"]]
-    k = -(-len(ids) // 4)
+    k = -(-len(ids) // MAXW)
     while True:
         sizes = [len(ids) // k + (1 if j < len(ids) % k else 0) for j in range(k)]
         parts, pos = [], 0
         for sz in sizes: parts.append(ids[pos:pos+sz]); pos += sz
-        if k >= len(ids) or all(sum(len(words[i]["text"]) + 1 for i in pt) <= 27 for pt in parts): break
+        if k >= len(ids) or all(sum(len(words[i]["text"]) + 1 for i in pt) <= MAXC for pt in parts): break
         k += 1
     chunks += parts
 json.dump(dict(words=words, chunks=chunks, phrases=phrases), open("data/transcript.json", "w"), ensure_ascii=False, indent=1)

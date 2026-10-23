@@ -1,7 +1,7 @@
 ---
 name: short-form-video-editor
 argument-hint: "[optional: language, brand colour, style notes, logo attached as image]"
-description: Turn a talking-head / spoken video into a polished, high-retention Reel/TikTok/Short - word-synced captions (Arabic/RTL and English), animated key-word callouts, infographics/diagrams/UI cards timed to what is said, camera punch-ins, brand logo placement, subtle synthesized SFX, loudness-normalized audio. Use when the user attaches a video and asks to edit it professionally, add captions/motion graphics/infographics/SFX/logo, or make a reel/short from it. Works fully offline in the cloud sandbox (ffmpeg + headless Chromium + GSAP + sherpa-onnx Whisper).
+description: (Also dubs the video into another language with a new voice and lip-synced mouth.) Turn a talking-head / spoken video into a polished, high-retention Reel/TikTok/Short - word-synced captions (Arabic/RTL and English), animated key-word callouts, infographics/diagrams/UI cards timed to what is said, camera punch-ins, brand logo placement, subtle synthesized SFX, loudness-normalized audio. Use when the user attaches a video and asks to edit it professionally, add captions/motion graphics/infographics/SFX/logo, or make a reel/short from it. Works fully offline in the cloud sandbox (ffmpeg + headless Chromium + GSAP + sherpa-onnx Whisper).
 ---
 
 # AUTOPILOT - what to do when the user types `/short-form-video-editor`
@@ -15,9 +15,20 @@ The user uploads a video (and optionally a logo image) and types the command. Do
 6. Expect ~15-25 min for a 60 s video (transcription ~3 min, rendering ~4 min, encoding ~2 min). Tell the user at the start in one line, then work silently until done.
 
 
+# DUB MODE - translate + new voice + lip-sync (proven: Arabic -> English, project `glow-kbeauty-reel-en`)
+Use when the user wants the video in another language "with the lips following the words".
+1. **Script**: transcribe + verify the original as in Edit mode, then write the translation yourself as `data/phrases.<lang>.json` = `[[win_start, win_end, "text with *key words and DISPLAY|spoken overrides (NBSP inside multi-word tokens)"], ...]`. Keep the ORIGINAL phrase windows so camera/graphics beats survive; you may merge neighbouring windows. Budget about 2.5-3 words/s (English) per window - condense rather than rush; keep meaning, no new claims. Spoken override example: `*COSRX|Cosrex`, `Axis-Y|Axis\u00a0Y`.
+2. **Models**: `scripts/fetch_dub_models.sh` (+ `fetch_asr_model.sh` for verification).
+3. **Voice**: `python3 -I scripts/tts_phrases.py data/phrases.en.json 5 <total_seconds>` -> `work/voice_en.wav` (speed-fitted per window, never above 1.2x) and `data/transcript.source.json` with ACTUAL speech spans. Verify by round-trip: `asr_probe.py work/en16k.wav en <windows...>` must read back as the script (brand names included). The voice is a stock synthetic voice (Kokoro) - voice cloning is not available offline; say so.
+4. **Lip-sync on ORIGINAL-resolution frames** (the 96px model works at native face size): `ffmpeg -t <end> -i src -vf fps=30 work/raw/%05d.png`; `ffmpeg -i work/voice_en.wav -ac 1 -ar 16000 work/en16k.wav`; `MODELS=work/models python3 -I scripts/lipsync.py work/raw work/en16k.wav work/ls 30 wav2lip_gan_96.onnx` (~7 min / 1700 frames on 4 CPUs; check a few frames first with the optional `first last` args); then `scripts/01b_upscale_lipsynced.sh`. Use the GAN model (the plain model tints the lips purple). Blend mask is mouth-only so the real beard/jaw stays.
+5. **Visual sync proof**: contact sheet of mouth crops with the audio envelope under each tile - mouth must be closed in the silent gaps and open/varied while the bar is up. Pixel-correlation metrics are too noisy here; do not rely on them.
+6. **Graphics**: `python3 -I scripts/build_transcript.py work/en16k.wav` (set `max_chars` ~22 in the source json for English), regenerate `composition/transcript.js`, then rewrite `scene.js` copy + trigger words in the new language (LTR: `.row`/`.chunk` direction ltr, Inter font, strike origin left, flow arrows left->right). Multi-word tokens are separate words in the transcript: look up single words (`ts('skin',0,43.5)`), never `ts('your skin')`.
+7. Render as usual (`LAST_SRC_FRAME=<n> scripts/02_render_all.sh`, cues, sfx) and mix with `VOICE=work/voice_en.wav OUT=out/name-en.mp4 scripts/03_mix_and_encode.sh`.
+8. **Be honest in the summary**: Wav2Lip at ~100px faces gives a soft, slightly smoothed mouth (visible on close inspection), head/hand motion is still the original speaker's, the voice is synthetic, the speaker should approve a dubbed version of their likeness, consider labelling it as AI-dubbed. Name any translated phrase whose source was low-confidence.
+
 # Short-form video editor (captions + motion graphics + SFX)
 
-Pipeline proven on a 57 s Egyptian-Arabic pharmacy promo (Glow Cosmetics). Output: 1080x1920 @30, H.264/AAC, -14 LUFS.
+Two modes: **Edit** (keep the language, add captions/graphics/SFX) and **Dub** (translate to another language, new voice, lips re-animated to the new audio - triggered when the user says English/translate/dub/lip-sync). Pipeline proven on a 57 s Egyptian-Arabic pharmacy promo (Glow Cosmetics). Output: 1080x1920 @30, H.264/AAC, -14 LUFS.
 Worked example project: `projects/glow-kbeauty-reel/` in https://github.com/MuhammadToffaha/Video-editing
 
 ## Rules that define "professional, not template"
@@ -48,4 +59,6 @@ Worked example project: `projects/glow-kbeauty-reel/` in https://github.com/Muha
 - Empty blurred cards look broken: either start the card on its trigger word or show dim placeholder rows/slots that light up when spoken.
 - Arabic needs real shaping: Chromium + Cairo woff2 (unicode-range split Arabic/Latin) works; Pillow/ffmpeg drawtext does not.
 - Whisper in sherpa-onnx has no word timestamps and truncates tails; hence short windows + pause anchoring.
+- opencv 5.x has no `CascadeClassifier` (pin 4.10.0.84); Haar face boxes give false positives on hands/shirt and miss ~30% of frames -> median-box outlier rejection + ROI second pass + interpolation (already in lipsync.py).
+- Kokoro/Whisper-style TTS reads `COSRX` as letters: use `DISPLAY|spoken` overrides.
 - GitHub MCP `create_repository` can be 403 - ask the user to create the repo, then `add_repo` + clone (clone to a fresh dir if the path exists).
