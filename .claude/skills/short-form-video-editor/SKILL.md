@@ -15,7 +15,7 @@ The user uploads a video (and optionally a logo image) and types the command. Do
 6. Expect ~15-25 min for a 60 s video (transcription ~3 min, rendering ~4 min, encoding ~2 min). Tell the user at the start in one line, then work silently until done.
 
 
-# DUB MODE - translate + new voice + lip-sync (proven: Arabic -> English, project `glow-kbeauty-reel-en`)
+# DUB MODE - translate + new voice + lip-sync (tested once on the Glow clip: Arabic -> English)
 Use when the user wants the video in another language "with the lips following the words".
 1. **Script**: transcribe + verify the original as in Edit mode, then write the translation yourself as `data/phrases.<lang>.json` = `[[win_start, win_end, "text with *key words and DISPLAY|spoken overrides (NBSP inside multi-word tokens)"], ...]`. Keep the ORIGINAL phrase windows so camera/graphics beats survive; you may merge neighbouring windows. Budget about 2.5-3 words/s (English) per window - condense rather than rush; keep meaning, no new claims. Spoken override example: `*COSRX|Cosrex`, `Axis-Y|Axis\u00a0Y`.
 2. **Models**: `scripts/fetch_dub_models.sh` (+ `fetch_asr_model.sh` for verification).
