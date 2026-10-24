@@ -1,17 +1,17 @@
 ---
-name: short-form-video-editor
+name: Glow
 argument-hint: "[optional: language, brand colour, style notes, logo attached as image]"
 description: Turn a talking-head / spoken video into a polished, high-retention Reel/TikTok/Short - word-synced captions (Arabic/RTL and English), animated key-word callouts, infographics/diagrams/UI cards timed to what is said, camera punch-ins, brand logo placement, subtle synthesized SFX, loudness-normalized audio. Use when the user attaches a video and asks to edit it professionally, add captions/motion graphics/infographics/SFX/logo, or make a reel/short from it. Works fully offline in the cloud sandbox (ffmpeg + headless Chromium + GSAP + sherpa-onnx Whisper).
 ---
 
-# AUTOPILOT - what to do when the user types `/short-form-video-editor`
-The user uploads a video (and optionally a logo image) and types the command. Do the WHOLE job without asking questions; only stop if something truly blocks you (no video found, no ffmpeg). Extra text after the command = style/brand notes, apply them.
+# AUTOPILOT - what to do when the user types `/Glow`
+The user uploads a video (and optionally a logo image) and types the command. Every video made with this skill is a Glow Cosmetics video: the Glow brand outro is always appended. Do the WHOLE job without asking questions; only stop if something truly blocks you (no video found, no ffmpeg). Extra text after the command = style/brand notes, apply them.
 
 1. **Find inputs**: newest video in the session uploads (`ls -t /root/.claude/uploads/*/*.{mp4,mov,webm}` or the path given in the message); logo = an attached image if any (no logo -> skip watermark/hero/outro-logo, use a clean text-free outro). Language = auto-detect with `asr_chunks.py ... auto`.
 2. **Locate the toolkit**: this skill's folder (the directory containing this SKILL.md) holds `template/`. Work in a new project folder: inside the Video-editing repo clone as `projects/<slug>-<YYYYMMDD>/` when that repo is in the session, otherwise in the scratchpad. `cp -r template/. <project>/`.
 3. **Check/install deps** (once): `ffmpeg`, Node + Playwright Chromium (`/opt/pw-browsers`, never run `playwright install`), `pip install numpy pillow sherpa-onnx`, `scripts/fetch_asr_model.sh`. No network for huggingface; GitHub releases + npm + PyPI work.
 4. Run the **Workflow** below end to end, making design decisions yourself (brand colour from the logo; otherwise coral/teal tech palette; scenes chosen from `reference/scene-patterns.md` to fit what is actually said).
-5. **Deliver**: `SendUserFile` the mp4 (display render), then a short summary: specs, what graphics were added, LOW-CONFIDENCE transcript spots to verify by ear, footage-resolution caveat, "audio not auditioned". Save the project (without `work/`) and the final mp4 into the repo and push to the session's designated branch (or `main` if none was given). Never create a PR unless asked.
+5. **Deliver**: append the Glow outro (`scripts/04_append_outro.sh out/name.mp4 out/name_final.mp4`; see below), then `SendUserFile` the final mp4 (display render), then a short summary: specs, what graphics were added, LOW-CONFIDENCE transcript spots to verify by ear, footage-resolution caveat, "audio not auditioned". Save the project (without `work/`) and the final mp4 into the repo and push to the session's designated branch (or `main` if none was given). Never create a PR unless asked.
 6. Expect ~15-25 min for a 60 s video (transcription ~3 min, rendering ~4 min, encoding ~2 min). Tell the user at the start in one line, then work silently until done.
 
 
@@ -27,6 +27,9 @@ Worked example project: `projects/glow-kbeauty-reel/` in https://github.com/Muha
 - Layout zones (1080x1920, speaker's face ~y 790-1110): cards y 235-735 (never over the face, even after 1.15x zoom), captions y~1545, keep bottom 220 px and top 130 px free of key content (platform UI). Re-check the face position for each source.
 - Retention devices, in moderation: punch-in snap (1.12-1.15x) on sentence starts with slow drifts between, a graphic every 2-4 s, active-word caption highlight, strike-through / check / count-up micro-animations, hero logo moment when the brand is said, brand end card.
 - SFX: whoosh on card-in, pop/tick on elements, chime on success, thud on logo. Quiet (about -10 dB under voice). No music unless the user supplies it.
+
+## Glow outro (mandatory, last step of every video)
+`template/assets/glow_outro.mp4` (10 s, 1280x720, Glow Cosmetics logo reveal with its own audio) is appended to the END of every video: `scripts/04_append_outro.sh out/name.mp4 out/name_final.mp4`. It fits the 16:9 clip to the reel width over a blurred copy of itself (logo never cropped) and cross-fades 0.4 s (`XF=`). With this outro in place, skip the built-in brand end card in `scene.js` (keep only the voice end + ~0.3 s) so the brand is not shown twice. Final length = reel + 9.6 s. Deliver the `_final` file.
 
 ## Workflow
 1. **Inspect**: `ffprobe`, contact sheet (`ffmpeg -vf "fps=1/6,scale=239:-1,tile=5x2"`), find trailing end cards (WhatsApp/CapCut black frame) and note speaker position. Source is usually low-res (phone/WhatsApp): upscale with lanczos, tell the user footage will be soft while graphics stay crisp.
