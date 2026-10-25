@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/candidate.json",
+    "sha256": "096a7ed610b08565c22943aa18a7d96f34ae248cd2ec45cffb0dcc8f51bd609a",
+    "bytes": 7048
+  },
+  "artifact": {
+    "path": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/video-editing-architecture.html",
+    "sha256": "bdec45b1819fcbd63517456b0f1b825567fad16be8d6ba524c54d6a1e70b8603",
+    "bytes": 832763
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/review-3/video-editing-architecture.finalize.json",
+    "summaryReceipt": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/review-3/video-editing-architecture.finalize-summary.json",
+    "browserCheckReceipt": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/review-3/video-editing-architecture.browser-check.json"
+  },
+  "visualReview": "not-requested",
+  "durationMs": 4194,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

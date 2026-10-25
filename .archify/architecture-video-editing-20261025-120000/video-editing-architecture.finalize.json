@@ -1,0 +1,385 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "skipped",
+  "type": "architecture",
+  "quality": "showcase",
+  "startedAt": "2026-10-25T06:47:03.022Z",
+  "specification": {
+    "path": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/candidate.json",
+    "sha256": "e8b1e4ccc051c4f4b6cd4ed626f6dde934cd1f9dfe49860ecfa96bd51965ecd1",
+    "bytes": 4817
+  },
+  "artifact": {
+    "path": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/video-editing-architecture.html",
+    "sha256": "d5fe1f95c8c255f941da40d36c9a80a1aed9b6fdf6eb762c586677dba72fdd59",
+    "bytes": 832833
+  },
+  "stages": {
+    "validate": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": null,
+      "execution": "embedded-in-deliver",
+      "command": [
+        "/opt/node22/bin/node",
+        "/root/.agents/skills/archify/bin/archify.mjs",
+        "deliver",
+        "architecture",
+        "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/candidate.json",
+        "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/video-editing-architecture.html",
+        "--quality",
+        "showcase",
+        "--repo-root",
+        "/home/user/Video-editing",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": true,
+        "command": "validate",
+        "specification": {
+          "sha256": "e8b1e4ccc051c4f4b6cd4ed626f6dde934cd1f9dfe49860ecfa96bd51965ecd1",
+          "bytes": 4817
+        },
+        "validation": {
+          "checksPassed": 9,
+          "checkCount": 9,
+          "compositionProfile": "showcase",
+          "compositionStatus": "pass",
+          "errors": 0,
+          "warnings": 0
+        }
+      }
+    },
+    "deliver": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": 576,
+      "command": [
+        "/opt/node22/bin/node",
+        "/root/.agents/skills/archify/bin/archify.mjs",
+        "deliver",
+        "architecture",
+        "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/candidate.json",
+        "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/video-editing-architecture.html",
+        "--quality",
+        "showcase",
+        "--repo-root",
+        "/home/user/Video-editing",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "receiptId": "70865735-9eef-420b-82eb-75cb89777652",
+        "ok": true,
+        "command": "deliver",
+        "type": "architecture",
+        "input": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/candidate.json",
+        "output": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/video-editing-architecture.html",
+        "specification": {
+          "sha256": "e8b1e4ccc051c4f4b6cd4ed626f6dde934cd1f9dfe49860ecfa96bd51965ecd1",
+          "bytes": 4817
+        },
+        "artifact": {
+          "sha256": "d5fe1f95c8c255f941da40d36c9a80a1aed9b6fdf6eb762c586677dba72fdd59",
+          "bytes": 832833
+        },
+        "validation": {
+          "checksPassed": 9,
+          "checkCount": 9,
+          "compositionProfile": "showcase",
+          "compositionStatus": "pass",
+          "errors": 0,
+          "warnings": 0
+        },
+        "evidence": {
+          "verified": true,
+          "repository": "https://github.com/MuhammadToffaha/Video-editing",
+          "revision": "fcdf828dcc36918914576c2852ba2d16b448c342",
+          "references": 13
+        },
+        "update": {
+          "status": "unavailable",
+          "installedVersion": null,
+          "availableVersion": null,
+          "releaseNotes": null,
+          "checkedAt": null,
+          "source": null,
+          "noticeRequired": false,
+          "noticeText": null,
+          "reason": "disabled"
+        }
+      }
+    },
+    "check": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": 216,
+      "command": [
+        "/opt/node22/bin/node",
+        "/root/.agents/skills/archify/bin/archify.mjs",
+        "check",
+        "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/video-editing-architecture.html",
+        "--require-provenance"
+      ],
+      "receipt": {
+        "ok": true,
+        "file": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/video-editing-architecture.html",
+        "artifact": {
+          "sha256": "d5fe1f95c8c255f941da40d36c9a80a1aed9b6fdf6eb762c586677dba72fdd59",
+          "bytes": 832833
+        },
+        "checks": [
+          {
+            "name": "single_svg",
+            "ok": true,
+            "details": [
+              "found 1 <svg> block(s)"
+            ]
+          },
+          {
+            "name": "finite_svg",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "orthogonal_arrows",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "label_route_clearance",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "relationship_crossings",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "relationship_corridors",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "container_border_runs",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "route_rhythm",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "legend_clearance",
+            "ok": true,
+            "details": []
+          }
+        ],
+        "composition": {
+          "schemaVersion": 1,
+          "profile": "showcase",
+          "status": "pass",
+          "summary": {
+            "errors": 0,
+            "warnings": 0
+          },
+          "metrics": {
+            "properCrossings": 0,
+            "resolvedCrossovers": 0,
+            "ambiguousCorridors": 0,
+            "arrowheadCollisions": 0,
+            "containerBorderRuns": 0,
+            "labelRouteClearanceIssues": 0,
+            "labelCanvasOverflowIssues": 0,
+            "minLabelRouteClearance": 29,
+            "desktopReadabilityIssues": 0,
+            "viewportHeightIssues": 0,
+            "minProjectedNodeTextPx": 7.5,
+            "maxBends": 2,
+            "routesOverSuggestedBends": 0,
+            "maxStretch": 1,
+            "routesOverSuggestedStretch": 0,
+            "minSegmentPx": 24,
+            "minInteriorSegmentPx": 201,
+            "shortSegmentCount": 0,
+            "shortEndpointSegmentCount": 0,
+            "shortInteriorSegmentCount": 0,
+            "microSegmentCount": 0
+          },
+          "suggestedLimits": {
+            "bendsPerRelationship": 2,
+            "stretch": 1.35,
+            "segmentPx": 16,
+            "microSegmentPx": 8
+          },
+          "routeReview": {
+            "crossings": [],
+            "detours": []
+          },
+          "leadingSpace": {
+            "measured": true,
+            "emptyTopPx": 200,
+            "emptyTopRatio": 0.299,
+            "occupiedTop": 200,
+            "viewBoxTop": 0,
+            "canvasHeight": 668,
+            "typicalNodeHeight": 60,
+            "reviewSuggested": true
+          },
+          "desktopReadability": {
+            "budgetBasis": "recognized-declared-wide",
+            "readerContract": "declared-wide-v1",
+            "availableDiagramWidth": 1195.3125,
+            "actualBudgetPx": 1195.3125,
+            "actualReaderWidth": 1225.3125,
+            "desiredReaderWidth": 1225.3125,
+            "viewportCap": 1376,
+            "limit": "source-size",
+            "requestedTargetPx": 7.5,
+            "requestedTargetMet": true,
+            "hardFloorPx": 6,
+            "hardFloorMet": true,
+            "minimumOwner": {
+              "kind": "edge",
+              "id": "c1",
+              "from": "creator",
+              "to": "skill"
+            },
+            "minimumSourceTextPx": 8,
+            "minimumProjectedTextPx": 7.5,
+            "semanticTextCount": 34
+          },
+          "issues": []
+        },
+        "provenance": "current",
+        "deliveryReceiptId": "70865735-9eef-420b-82eb-75cb89777652"
+      }
+    },
+    "browser-check": {
+      "status": "skipped",
+      "exitCode": 2,
+      "durationMs": 50,
+      "command": [
+        "/opt/node22/bin/node",
+        "/root/.agents/skills/archify/bin/archify.mjs",
+        "browser-check",
+        "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/video-editing-architecture.html",
+        "--json",
+        "--require-provenance"
+      ],
+      "execution": "in-process",
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": false,
+        "command": "browser-check",
+        "evidenceKind": "automated-browser",
+        "status": "skipped",
+        "visualReview": "not-requested",
+        "provenance": "current",
+        "deliveryReceiptId": "70865735-9eef-420b-82eb-75cb89777652",
+        "artifact": {
+          "path": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/video-editing-architecture.html",
+          "sha256": "d5fe1f95c8c255f941da40d36c9a80a1aed9b6fdf6eb762c586677dba72fdd59",
+          "bytes": 832833
+        },
+        "state": {
+          "detail": "read",
+          "motion": "still"
+        },
+        "chrome": {
+          "status": "unavailable",
+          "executable": null
+        },
+        "diagnostics": [
+          {
+            "code": "viewer/chrome-unavailable",
+            "severity": "warning",
+            "message": "No supported browser found. Install Chrome/Chromium (or Microsoft Edge), or set ARCHIFY_CHROME to its executable path.",
+            "subject": {
+              "artifact": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/video-editing-architecture.html"
+            },
+            "evidence": {
+              "executable": null
+            },
+            "supportedFixes": [
+              "set ARCHIFY_CHROME to a Chrome/Chromium executable (or Microsoft Edge) and rerun browser-check"
+            ]
+          }
+        ],
+        "containment": {
+          "status": "skipped",
+          "policy": "fit-or-reader-declared-readable-vertical-scroll",
+          "viewports": []
+        },
+        "themeStates": {
+          "status": "skipped",
+          "viewports": []
+        },
+        "readability": {
+          "status": "skipped",
+          "minimumProjectedNodeTextPx": 6,
+          "viewports": []
+        },
+        "viewerChrome": {
+          "status": "skipped",
+          "viewports": []
+        },
+        "captures": {
+          "status": "not-requested",
+          "screenshots": [],
+          "contactSheet": null
+        },
+        "sidecars": {
+          "receipt": "video-editing-architecture.browser-check.json",
+          "files": []
+        },
+        "error": "No supported browser found. Install Chrome/Chromium (or Microsoft Edge), or set ARCHIFY_CHROME to its executable path."
+      }
+    }
+  },
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  },
+  "diagnostics": [
+    {
+      "code": "viewer/chrome-unavailable",
+      "severity": "warning",
+      "message": "No supported browser found. Install Chrome/Chromium (or Microsoft Edge), or set ARCHIFY_CHROME to its executable path.",
+      "subject": {
+        "artifact": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/video-editing-architecture.html"
+      },
+      "evidence": {
+        "executable": null
+      },
+      "supportedFixes": [
+        "set ARCHIFY_CHROME to a Chrome/Chromium executable (or Microsoft Edge) and rerun browser-check"
+      ]
+    }
+  ],
+  "evidence": {
+    "receipt": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/video-editing-architecture.finalize.json",
+    "summaryReceipt": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/video-editing-architecture.finalize-summary.json",
+    "browserCheckReceipt": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/video-editing-architecture.browser-check.json"
+  },
+  "visualReview": "not-requested",
+  "failedStage": "browser-check",
+  "finishedAt": "2026-10-25T06:47:03.963Z",
+  "durationMs": 941,
+  "update": {
+    "status": "unavailable",
+    "installedVersion": null,
+    "availableVersion": null,
+    "releaseNotes": null,
+    "checkedAt": null,
+    "source": null,
+    "noticeRequired": false,
+    "noticeText": null,
+    "reason": "check-failed"
+  }
+}

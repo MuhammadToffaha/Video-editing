@@ -1,0 +1,361 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Video-editing: short-form reel pipeline",
+    "output": ".archify/architecture-video-editing-20261025-120000/video-editing-architecture.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/MuhammadToffaha/Video-editing",
+      "provider": "github",
+      "revision": "fcdf828dcc36918914576c2852ba2d16b448c342"
+    }
+  },
+  "components": [
+    {
+      "id": "creator",
+      "type": "external",
+      "label": "Creator",
+      "sublabel": "video + logo",
+      "pos": [
+        40,
+        40
+      ],
+      "size": [
+        120,
+        60
+      ]
+    },
+    {
+      "id": "skill",
+      "type": "backend",
+      "label": "Skill autopilot",
+      "sublabel": "SKILL.md",
+      "pos": [
+        255,
+        40
+      ],
+      "size": [
+        120,
+        60
+      ],
+      "sources": [
+        {
+          "path": ".claude/skills/short-form-video-editor/SKILL.md",
+          "line": 7,
+          "end_line": 16
+        }
+      ]
+    },
+    {
+      "id": "prepare",
+      "type": "backend",
+      "label": "Prepare",
+      "sublabel": "ffmpeg frames",
+      "pos": [
+        470,
+        40
+      ],
+      "size": [
+        120,
+        60
+      ],
+      "sources": [
+        {
+          "path": ".claude/skills/short-form-video-editor/template/scripts/01_prepare.sh",
+          "line": 1,
+          "end_line": 12
+        }
+      ]
+    },
+    {
+      "id": "asr",
+      "type": "backend",
+      "label": "Transcribe",
+      "sublabel": "Whisper, pauses",
+      "pos": [
+        685,
+        40
+      ],
+      "size": [
+        120,
+        60
+      ],
+      "sources": [
+        {
+          "path": ".claude/skills/short-form-video-editor/template/scripts/asr_chunks.py",
+          "line": 1,
+          "end_line": 21
+        },
+        {
+          "path": ".claude/skills/short-form-video-editor/template/scripts/build_transcript.py",
+          "line": 1,
+          "end_line": 45
+        }
+      ]
+    },
+    {
+      "id": "scene",
+      "type": "frontend",
+      "label": "Composition",
+      "sublabel": "scene.js + GSAP",
+      "pos": [
+        900,
+        40
+      ],
+      "size": [
+        120,
+        60
+      ],
+      "sources": [
+        {
+          "path": ".claude/skills/short-form-video-editor/template/composition/scene.js",
+          "line": 1,
+          "end_line": 332
+        }
+      ]
+    },
+    {
+      "id": "render",
+      "type": "backend",
+      "label": "Render",
+      "sublabel": "Chromium x4",
+      "pos": [
+        1115,
+        40
+      ],
+      "size": [
+        120,
+        60
+      ],
+      "sources": [
+        {
+          "path": ".claude/skills/short-form-video-editor/template/scripts/render.mjs",
+          "line": 1,
+          "end_line": 35
+        },
+        {
+          "path": ".claude/skills/short-form-video-editor/template/scripts/02_render_all.sh",
+          "line": 1,
+          "end_line": 6
+        }
+      ]
+    },
+    {
+      "id": "work",
+      "type": "database",
+      "label": "work/",
+      "sublabel": "frames, wavs",
+      "pos": [
+        470,
+        220
+      ],
+      "size": [
+        120,
+        60
+      ],
+      "sources": [
+        {
+          "path": ".claude/skills/short-form-video-editor/template/scripts/01_prepare.sh",
+          "line": 5,
+          "end_line": 12
+        }
+      ]
+    },
+    {
+      "id": "dub",
+      "type": "backend",
+      "label": "Dub mode",
+      "sublabel": "TTS + lip-sync",
+      "pos": [
+        685,
+        220
+      ],
+      "size": [
+        120,
+        60
+      ],
+      "tag": "optional",
+      "sources": [
+        {
+          "path": ".claude/skills/short-form-video-editor/template/scripts/tts_clone.py",
+          "line": 1,
+          "end_line": 57
+        },
+        {
+          "path": ".claude/skills/short-form-video-editor/template/scripts/lipsync2.py",
+          "line": 1,
+          "end_line": 85
+        }
+      ]
+    },
+    {
+      "id": "sfx",
+      "type": "backend",
+      "label": "SFX synth",
+      "sublabel": "from cues",
+      "pos": [
+        900,
+        220
+      ],
+      "size": [
+        120,
+        60
+      ],
+      "sources": [
+        {
+          "path": ".claude/skills/short-form-video-editor/template/scripts/sfx.py",
+          "line": 1,
+          "end_line": 61
+        }
+      ]
+    },
+    {
+      "id": "mix",
+      "type": "backend",
+      "label": "Mix + encode",
+      "sublabel": "ffmpeg libx264",
+      "pos": [
+        1115,
+        220
+      ],
+      "size": [
+        120,
+        60
+      ],
+      "sources": [
+        {
+          "path": ".claude/skills/short-form-video-editor/template/scripts/03_mix_and_encode.sh",
+          "line": 1,
+          "end_line": 10
+        }
+      ]
+    },
+    {
+      "id": "reel",
+      "type": "external",
+      "label": "Reel mp4",
+      "sublabel": "1080x1920",
+      "pos": [
+        1115,
+        380
+      ],
+      "size": [
+        120,
+        60
+      ],
+      "sources": [
+        {
+          "path": "README.md",
+          "line": 5,
+          "end_line": 9
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c1",
+      "from": "creator",
+      "to": "skill",
+      "label": "video+logo",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c2",
+      "from": "skill",
+      "to": "prepare",
+      "label": "autopilot"
+    },
+    {
+      "id": "c3",
+      "from": "prepare",
+      "to": "asr",
+      "label": "16k wav"
+    },
+    {
+      "id": "c4",
+      "from": "asr",
+      "to": "scene",
+      "label": "transcript"
+    },
+    {
+      "id": "c5",
+      "from": "scene",
+      "to": "render",
+      "label": "scene.js"
+    },
+    {
+      "id": "c6",
+      "from": "prepare",
+      "to": "work",
+      "label": "frames"
+    },
+    {
+      "id": "c7",
+      "from": "render",
+      "to": "mix",
+      "label": "frames"
+    },
+    {
+      "id": "c8",
+      "from": "render",
+      "to": "sfx",
+      "label": "cues",
+      "variant": "dashed"
+    },
+    {
+      "id": "c9",
+      "from": "sfx",
+      "to": "mix",
+      "label": "sfx.wav"
+    },
+    {
+      "id": "c10",
+      "from": "mix",
+      "to": "reel",
+      "label": "encode",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c11",
+      "from": "asr",
+      "to": "dub",
+      "label": "script",
+      "variant": "dashed"
+    },
+    {
+      "id": "c12",
+      "from": "dub",
+      "to": "sfx",
+      "label": "voice",
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Edit mode",
+      "items": [
+        "Keeps the speaker's voice and language",
+        "Adds captions, callouts, logo, SFX"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Dub mode",
+      "items": [
+        "Optional: translated script, cloned voice",
+        "Wav2Lip re-animates the mouth"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Reading notes",
+      "items": [
+        "Mix reads the original or dubbed voice",
+        "Overview omits per-project assets"
+      ]
+    }
+  ]
+}

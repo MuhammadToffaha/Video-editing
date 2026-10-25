@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/candidate.json",
+    "sha256": "e8b1e4ccc051c4f4b6cd4ed626f6dde934cd1f9dfe49860ecfa96bd51965ecd1",
+    "bytes": 4817
+  },
+  "artifact": {
+    "path": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/video-editing-architecture.html",
+    "sha256": "d5fe1f95c8c255f941da40d36c9a80a1aed9b6fdf6eb762c586677dba72fdd59",
+    "bytes": 832833
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/review-2/video-editing-architecture.finalize.json",
+    "summaryReceipt": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/review-2/video-editing-architecture.finalize-summary.json",
+    "browserCheckReceipt": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/review-2/video-editing-architecture.browser-check.json"
+  },
+  "visualReview": "not-requested",
+  "durationMs": 6712,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  },
+  "layoutReviewRecommendation": {
+    "action": "inspect-leading-space",
+    "evidence": {
+      "measured": true,
+      "emptyTopPx": 200,
+      "emptyTopRatio": 0.299,
+      "occupiedTop": 200,
+      "viewBoxTop": 0,
+      "canvasHeight": 668,
+      "typicalNodeHeight": 60,
+      "reviewSuggested": true
+    },
+    "reason": "Measured content, including routes and labels, leaves a large empty area above the diagram. This is a composition suggestion, not a failed gate.",
+    "repair": "Check whether that leading space is intentional. If not, reposition the connected scene nearer the canvas origin while retaining room for its actual boundaries, labels and return routes. Preserve all meaning and user-fixed geometry, then rerun finalize. No screenshot is required."
+  }
+}

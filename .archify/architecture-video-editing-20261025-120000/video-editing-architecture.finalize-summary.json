@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "skipped",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/candidate.json",
+    "sha256": "e8b1e4ccc051c4f4b6cd4ed626f6dde934cd1f9dfe49860ecfa96bd51965ecd1",
+    "bytes": 4817
+  },
+  "artifact": {
+    "path": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/video-editing-architecture.html",
+    "sha256": "d5fe1f95c8c255f941da40d36c9a80a1aed9b6fdf6eb762c586677dba72fdd59",
+    "bytes": 832833
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "skipped"
+  },
+  "failedStage": "browser-check",
+  "diagnostics": [
+    {
+      "code": "viewer/chrome-unavailable",
+      "severity": "warning",
+      "message": "No supported browser found. Install Chrome/Chromium (or Microsoft Edge), or set ARCHIFY_CHROME to its executable path.",
+      "subject": {
+        "artifact": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/video-editing-architecture.html"
+      },
+      "evidence": {
+        "executable": null
+      },
+      "supportedFixes": [
+        "set ARCHIFY_CHROME to a Chrome/Chromium executable (or Microsoft Edge) and rerun browser-check"
+      ]
+    }
+  ],
+  "diagnosticSummary": {
+    "total": 1,
+    "shown": 1,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/video-editing-architecture.finalize.json",
+    "summaryReceipt": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/video-editing-architecture.finalize-summary.json",
+    "browserCheckReceipt": "/home/user/Video-editing/.archify/architecture-video-editing-20261025-120000/video-editing-architecture.browser-check.json"
+  },
+  "visualReview": "not-requested",
+  "durationMs": 941,
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  }
+}
