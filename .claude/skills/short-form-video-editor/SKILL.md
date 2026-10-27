@@ -26,6 +26,10 @@ Use when the user wants the video in another language "with the lips following t
 7. Render as usual (`LAST_SRC_FRAME=<n> scripts/02_render_all.sh`, cues, sfx) and mix with `VOICE=work/voice_en.wav OUT=out/name-en.mp4 scripts/03_mix_and_encode.sh`.
 8. **Be honest in the summary**: Wav2Lip at ~100px faces gives a soft, slightly smoothed mouth (visible on close inspection), head/hand motion is still the original speaker's, the voice is synthetic, the speaker should approve a dubbed version of their likeness, consider labelling it as AI-dubbed. Name any translated phrase whose source was low-confidence.
 
+# WHITEBOARD MODE - replace the footage with a hand-drawn explainer (keep the speaker's voice)
+Trigger: "remove the video / replace it with an explainer / whiteboard / hand drawing". Reference implementation: `projects/glow-kbeauty-whiteboard` (`composition/wb.js` + `style.css`; no source frames needed, `render.mjs` runs without `work/frames`).
+Per scene: a label box (top-left, numbered), persistent coloured title banner, doodles from the shape library `L` drawn by the hand in the order spoken, handwritten labels, tables/charts/arrows/check-cross marks; captions stay (dark ink on white, coral pills). Keep the drawing zone y~420-1500 after the global shift/scale, captions at y~1545, nothing wider than ~960 px (the area is scaled 1.06). Check every scene on a contact sheet: clipped bars/labels and text colliding with captions were the bugs found. The original voice is re-used via `work/voice_raw.wav`; SFX adds `scribble` (per drawing) and `page` (scene change).
+
 # Short-form video editor (captions + motion graphics + SFX)
 
 Two modes: **Edit** (keep the language, add captions/graphics/SFX) and **Dub** (translate to another language, new voice, lips re-animated to the new audio - triggered when the user says English/translate/dub/lip-sync). Pipeline proven on a 57 s Egyptian-Arabic pharmacy promo (Glow Cosmetics). Output: 1080x1920 @30, H.264/AAC, -14 LUFS.

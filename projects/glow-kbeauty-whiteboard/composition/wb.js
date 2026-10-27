@@ -232,7 +232,7 @@ tl.to(wm, { opacity: .95, duration: .5 }, .9).to(wm, { opacity: 0, duration: .2 
   doodle(sc, 'arrowUp', { x: 780, y: 330, s: 1.7, t: ts('خطوة'), speed: 1200 }); }
 /* 15  better experience, day after day */
 { const sc = scene(48.52, 52.95, '15. التطور');
-  const hs = [90, 170, 260, 360, 470], bx = [90, 290, 490, 690, 890], base = 1230;
+  const hs = [90, 170, 260, 360, 470], bx = [115, 305, 495, 685, 875], base = 1230;
   const ax = svg('path', { d: `M60 ${base}H1020`, stroke: INK, 'stroke-width': 8, 'stroke-linecap': 'round', fill: 'none', opacity: 0 }, sc.g);
   { const len = ax.getTotalLength(); ax.style.strokeDasharray = `${len} ${len + 4}`; ax.style.strokeDashoffset = len; tl.set(ax, { opacity: 1 }, 48.6); tl.to(ax, { strokeDashoffset: 0, duration: .45, ease: 'none' }, 48.6); penSeg(ax, 48.6, 49.05); }
   const tb = [ts('تجربة', 0, 48) + .1, ts('أفضل') - .1, ts('يوم', 0, 49.9), ts('بعد', 0, 49.9), ts('يوم', 1, 50)];
@@ -243,7 +243,7 @@ tl.to(wm, { opacity: .95, duration: .5 }, .9).to(wm, { opacity: 0, duration: .2 
     write(sc, 'DAY ' + (i + 1), { x: bx[i] - 90, y: base + 20, w: 180, size: 54, t: tb[i] + dur, dur: .25, cls: 'bebas', color: INK, ltr: true, align: 'center' });
   });
   doodle(sc, 'arrowUp', { x: 560, y: 330, s: 4.6, t: tb[4] + .5, speed: 1600 });
-  write(sc, 'خطوة بخطوة', { x: 90, y: 1360, w: 900, size: 70, t: ts('خطوة', 0, 50.9), dur: .8, align: 'center' }); }
+  write(sc, 'خطوة بخطوة', { x: 40, y: 350, w: 500, size: 72, t: ts('خطوة', 0, 50.9), dur: .8, align: 'center' }); }
 /* 16  trust */
 { const sc = scene(53.0, 55.32, '16. الثقة');
   const tt = ts('ثقتكم');
