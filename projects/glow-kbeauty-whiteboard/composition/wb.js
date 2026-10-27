@@ -61,11 +61,6 @@ function scene(t0, t1, label) {
   const g = svg('g', { opacity: 0 }, art), wrap = div('sc', { opacity: 0, transformOrigin: '540px 300px', transform: 'translateY(170px) scale(1.06)' });
   tl.set([g, wrap], { opacity: 1 }, t0); tl.to([g, wrap], { opacity: 0, duration: .25, ease: 'power1.in' }, t1);
   cue(t0 - .02, 'page', .7);
-  if (label) {
-    const b = div('lbl', {}, stage); b.textContent = label;
-    tl.fromTo(b, { opacity: 0, y: -20, rotation: -3 }, { opacity: 1, y: 0, rotation: -1.2, duration: .35, ease: 'back.out(2)', immediateRender: false }, t0 + .05);
-    tl.to(b, { opacity: 0, duration: .2 }, t1);
-  }
   return { g, wrap, t0, t1 };
 }
 /* draw a doodle: outlines sequentially with the marker, then colour it in */
@@ -98,8 +93,6 @@ function write(sc, txt, { x, y, w = 800, size = 58, t, dur, cls = 'ar', color = 
 }
 /* ---------------- header: banner + watermark ---------------- */
 const banner = document.getElementById('banner'), wm = document.getElementById('wm');
-tl.fromTo(banner, { opacity: 0, y: -40, scale: .9 }, { opacity: 1, y: 0, scale: 1, duration: .5, ease: 'back.out(1.8)', immediateRender: false }, .15); cue(.2, 'pop', .8);
-tl.to(banner, { opacity: 0, duration: .2 }, 55.25);
 tl.to(wm, { opacity: .95, duration: .5 }, .9).to(wm, { opacity: 0, duration: .2 }, 55.25);
 
 /* ===================================================================== SCENES ===================================================================== */

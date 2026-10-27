@@ -21,10 +21,10 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#fff}
 .marker{font-family:"Permanent Marker",cursive}
 .ar{font-family:"Baloo Bhaijaan 2",Cairo,sans-serif;font-weight:800}
 /* persistent header: orange-coral banner (like the NAT banner) + sketch label box */
-#banner{position:absolute;left:345px;top:52px;width:390px;height:140px;background:var(--coral);color:#fff;font:400 108px/140px "Bebas Neue";letter-spacing:.05em;text-align:center;white-space:nowrap;opacity:0}
-.lbl{position:absolute;left:30px;top:62px;width:310px;height:112px;padding:0 10px;overflow:hidden;background:#fff;border:6px solid #111;border-radius:16px 10px 18px 8px;box-shadow:9px 9px 0 -1px #cfcfcf;
+#banner{display:none;position:absolute;left:345px;top:52px;width:390px;height:140px;background:var(--coral);color:#fff;font:400 108px/140px "Bebas Neue";letter-spacing:.05em;text-align:center;white-space:nowrap;opacity:0}
+.lbl{display:none;position:absolute;left:30px;top:62px;width:310px;height:112px;padding:0 10px;overflow:hidden;background:#fff;border:6px solid #111;border-radius:16px 10px 18px 8px;box-shadow:9px 9px 0 -1px #cfcfcf;
  font:800 38px/100px "Baloo Bhaijaan 2",Cairo;color:var(--blue);direction:rtl;text-align:center;opacity:0;white-space:nowrap}
-#wm{position:absolute;left:760px;top:92px;width:290px;opacity:0;filter:drop-shadow(0 0 .7px #CD5A50) drop-shadow(0 0 .7px #CD5A50)}
+#wm{position:absolute;left:395px;top:70px;width:290px;opacity:0;filter:drop-shadow(0 0 .7px #CD5A50) drop-shadow(0 0 .7px #CD5A50)}
 /* captions: same style as the reel (Cairo ExtraBold, active word highlight, accent pills) adapted to white paper */
 #caps{z-index:5;position:absolute;left:0;top:1545px;width:1080px;height:200px}
 .chunk{position:absolute;left:40px;right:40px;top:0;display:flex;direction:rtl;justify-content:center;flex-wrap:nowrap;gap:0 18px;opacity:0;
