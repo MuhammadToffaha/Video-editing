@@ -48,3 +48,4 @@ svg{position:absolute;left:0;top:0}
 #photo img{position:absolute;left:0;top:0;height:1920px;width:auto;transform-origin:0 0;will-change:transform}
 #veil{position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,rgba(255,236,246,.55) 0%,rgba(255,244,250,.12) 28%,rgba(255,244,250,.10) 62%,rgba(91,58,94,.38) 100%)}
 #fxs,#paper{z-index:1}
+#stage{z-index:2}

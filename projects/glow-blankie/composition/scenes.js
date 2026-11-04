@@ -1,108 +1,78 @@
-/* scenes.example.js - worked example: Glow K-beauty announcement. Replace with this video's scenes (see SKILL.md). */
-/* ===================================================================== SCENES ===================================================================== */
-/* 1  hook: Korean skincare + which one? */
-{ const sc = scene(.3, 3.78), xs = [40, 290, 540, 790], nm = ['lipgloss', 'compact', 'dropper', 'sheetmask'];
-  const st = nm.map((n, i) => sticker(sc, n, { x: xs[i], y: 560 + (i % 2) * 40, s: 2.2, t: .5 + i * .38, rot: [-6, 5, -4, 6][i] }));
-  bubble(sc, 'Korean Skincare', { x: 90, y: 940, w: 900, size: 74, t: ts('الكورية') + .1, cls: 'lat', rot: -2 });
-  const q = sticker(sc, 'qmark', { x: 410, y: 270, s: 2.8, t: ts('تختار') - .1, rot: 8, snd: 'pop', v: .8 });
-  st.forEach(s => shake(s, ts('تختار') + .1, 3, 8)); }
-/* 2  watch this */
-{ const sc = scene(3.88, 4.66);
-  sticker(sc, 'play', { x: 260, y: 600, s: 5.4, t: 3.92, rot: -3, v: .7 }); sticker(sc, 'eyes', { x: 690, y: 380, s: 2.2, t: 4.15, rot: 8 }); }
-/* 3  new addition at Glow */
-{ const sc = scene(5.1, 8.4), tn = ts('إضافة');
-  sticker(sc, 'store', { x: 110, y: 400, s: 3.6, t: 5.25, rot: -3 });
-  sticker(sc, 'burst', { x: 600, y: 300, s: 3.2, t: tn - .05, rot: 8, v: .8 });
-  bubble(sc, 'NEW', { x: 655, y: 400, w: 220, size: 120, t: tn + .2, cls: 'lat yel', rot: -8 });
-  const card = div('', { position: 'absolute', left: '250px', top: '900px', width: '580px', padding: '30px 20px', background: '#fff', border: '6px solid ' + PLUM, borderRadius: '44px', boxShadow: '0 10px 0 ' + PLUM, opacity: 0 }, sc.wrap);
-  card.innerHTML = '<img src="../assets/logo_brand.png" style="width:100%;display:block">';
-  const tg = ts('Glow', 0, 6); tl.fromTo(card, { opacity: 0, scale: .3, rotation: -8 }, { opacity: 1, scale: 1, rotation: -2, duration: .6, ease: 'back.out(2)', immediateRender: false }, tg); cue(tg, 'thud', .7); burst(sc, 540, 1000, tg + .1, 8, 300); }
-/* 4  special collection: shelf of cosmetics */
-{ const sc = scene(8.5, 10.65), nm = ['lipstick', 'compact', 'perfume', 'brush', 'nailpolish'], xs = [30, 240, 450, 660, 860];
-  const sh = div('', { position: 'absolute', left: '30px', top: '810px', width: '1020px', height: '36px', borderRadius: '20px', background: '#FFC4D9', border: '6px solid ' + PLUM, boxShadow: '0 8px 0 ' + PLUM, opacity: 0 }, sc.wrap);
-  tl.fromTo(sh, { opacity: 0, scaleX: .2 }, { opacity: 1, scaleX: 1, duration: .4, ease: 'back.out(1.6)', immediateRender: false }, 8.55);
-  nm.forEach((n, i) => sticker(sc, n, { x: xs[i], y: 600, s: 2.0, t: 8.9 + i * .3, rot: [-5, 4, -3, 5, -4][i], wig: 2.5 }));
-  const tm = ts('مميزة'); bubble(sc, '<span class="hl">مجموعة مميزة</span>', { x: 90, y: 930, w: 900, size: 82, t: tm + .1, html: true }); }
-/* 5  brands: ranking cards */
-{ const sc = scene(10.98, 18.6), names = ['COSRX', 'Dr. Althea', 'Axis-Y'], times = [ts('COSRX'), ts('Dr.Althea'), ts('Axis-Y')], cols = ['#FFD9E6', '#E3DBFF', '#D2F5E8'], ic = ['tube', 'dropper', 'jar'];
-  names.forEach((n, i) => { const y = 400 + i * 190, c = div('card', { top: y + 'px', background: cols[i] }, sc.wrap); c.innerHTML = `<div class="no">${i + 1}</div><div class="nm">${n}</div>`;
-    tl.fromTo(c, { opacity: 0, x: -700 }, { opacity: 1, x: 0, duration: .6, ease: 'back.out(1.5)', immediateRender: false }, times[i] - .1); cue(times[i] - .1, 'whoosh', .4);
-    sticker(sc, ic[i], { x: 830, y: y - 12, s: 1.45, t: times[i] + .35, rot: 6 }); });
-  const tm = ts('وغيرهم'), c = div('card dash', { top: (400 + 3 * 190) + 'px' }, sc.wrap); c.innerHTML = '<div class="no" style="color:#B7A6FF">+</div><div class="nm ar">وغيرهم كتير</div>';
-  tl.fromTo(c, { opacity: 0, x: -700 }, { opacity: 1, x: 0, duration: .6, ease: 'back.out(1.5)', immediateRender: false }, tm - .1);
-  ['heart', 'star'].forEach((n, i) => sticker(sc, n, { x: 780 + i * 110, y: 1000, s: 1.0, t: tm + .35 + i * .2, rot: 8 })); }
-/* 6  skincare types, each with its own benefits */
-{ const sc = scene(18.7, 20.95), cats = [['foam', 'غسول'], ['dropper', 'سيروم'], ['jar', 'مرطب'], ['sunscreen', 'واقي شمس']], xs = [50, 300, 550, 800];
-  cats.forEach(([n, l], i) => { const t = 18.8 + i * .32; sticker(sc, n, { x: xs[i], y: 560, s: 2.1, t, rot: [-5, 4, -4, 5][i] }); pill(sc, l, { x: xs[i] - 15, y: 820, t: t + .3, w: 230 }); });
-  const tb = ts('مميزاته') - .8; cats.forEach((_, i) => sticker(sc, 'heart', { x: xs[i] + 70, y: 400, s: .8, t: tb + i * .28, rot: 8, wig: 6 })); }
-/* 7  match product -> skin */
-{ const sc = scene(21.3, 24.34), tp = ts('المنتج', 0, 21.3), tm = ts('المناسب'), tS = ts('لبشرتنا');
-  sticker(sc, 'bottle', { x: 70, y: 500, s: 3, t: tp - .15, rot: -4 }); pill(sc, 'المنتج', { x: 80, y: 840, t: tp + .4, w: 290 });
-  sticker(sc, 'arrowR', { x: 390, y: 600, s: 2.4, t: tm, rot: 0, sparks: false });
-  sticker(sc, 'face', { x: 700, y: 500, s: 3, t: tS - .1, rot: 4 }); pill(sc, 'بشرتك', { x: 710, y: 840, t: tS + .4, w: 290 });
-  sticker(sc, 'check', { x: 370, y: 900, s: 3.2, t: tS + .75, rot: -6, snd: 'chime', v: .8 }); }
-/* 8  not just trending / popular */
-{ const sc = scene(24.5, 26.7), t1 = ts('ترند'), t2 = ts('مشهور');
-  sticker(sc, 'flame', { x: 100, y: 520, s: 3, t: t1 - .6, rot: -5 }); pill(sc, 'TRENDING', { x: 80, y: 850, t: t1 - .2, w: 330 });
-  sticker(sc, 'star', { x: 640, y: 520, s: 3, t: t2 - .6, rot: 5 }); pill(sc, 'POPULAR', { x: 620, y: 850, t: t2 - .2, w: 330 });
-  const x1 = sticker(sc, 'cross', { x: 150, y: 560, s: 2.4, t: t1 + .25, rot: -12, snd: 'thud', v: .7, sparks: false }), x2 = sticker(sc, 'cross', { x: 690, y: 560, s: 2.4, t: t2 + .25, rot: 12, snd: 'thud', v: .7, sparks: false }); }
-/* 9  more than supplying products */
-{ const sc = scene(26.9, 31.95), tp = ts('توفير', 0, 28);
-  bubble(sc, 'اهتمامنا', { x: 90, y: 330, w: 900, size: 92, t: ts('اهتمامنا') - .1, cls: 'pink' });
-  sticker(sc, 'gift', { x: 50, y: 560, s: 3, t: tp - .1, rot: -5 });
-  sticker(sc, 'plus', { x: 380, y: 680, s: 1.1, t: ts('بس', 0, 28), rot: 0, sparks: false });
-  ['shield', 'star', 'chat'].forEach((n, i) => sticker(sc, n, { x: 500 + i * 190, y: 640, s: 1.55, t: 29.6 + i * .42, rot: [-5, 5, -4][i] }));
-  bubble(sc, 'مش بس توفير المنتجات', { x: 70, y: 940, w: 940, size: 62, t: tp + .4, rot: 1 }); }
-/* 10  authentic from trusted sources */
-{ const sc = scene(32.1, 34.1), ta = ts('أصلية'), tm = ts('مصادر'), tv = ts('موثوقة');
-  sticker(sc, 'shield', { x: 640, y: 400, s: 3.4, t: ta - .35, rot: 5, snd: 'chime', v: .8 });
-  bubble(sc, 'منتجات <span class="hl">أصلية</span>', { x: 40, y: 540, w: 600, size: 78, t: ta, html: true });
-  sticker(sc, 'factory', { x: 690, y: 900, s: 2.4, t: tm - .15, rot: 3 }); sticker(sc, 'arrowL', { x: 470, y: 960, s: 1.9, t: tm + .3, rot: 0, sparks: false });
-  sticker(sc, 'store', { x: 130, y: 900, s: 2.4, t: tv - .05, rot: -3 });
-  pill(sc, 'مصادر موثوقة', { x: 600, y: 1170, t: tm + .1, w: 420 }); pill(sc, 'Glow', { x: 130, y: 1170, t: tv + .3, w: 240 }); }
-/* 11  quality */
-{ const sc = scene(34.28, 38.32), tj = ts('جودة'), tq = ts('وتقديم');
-  bubble(sc, 'جودة <span class="hl">الاختيارات</span>', { x: 60, y: 350, w: 960, size: 88, t: tj, html: true });
-  [0, 1, 2, 3, 4].forEach(i => sticker(sc, 'star', { x: 70 + i * 190, y: 620, s: 1.55, t: tj + .8 + i * .28, rot: [-6, 4, -3, 5, -5][i], snd: 'sparkle', v: .45 }));
-  sticker(sc, 'gift', { x: 340, y: 900, s: 2.0, t: tq - .1, rot: -4 }); sticker(sc, 'check', { x: 600, y: 940, s: 1.5, t: tq + .6, rot: 6, snd: 'chime', v: .7 });
-  bubble(sc, 'تقديم المنتجات', { x: 90, y: 1160, w: 900, size: 62, t: tq + .4, rot: 1 }); }
-/* 12  help */
-{ const sc = scene(38.62, 43.48);
-  sticker(sc, 'chat', { x: 770, y: 310, s: 2.2, t: 38.75, rot: 6 }); bubble(sc, 'حد <span class="hl">يساعدك</span>', { x: 50, y: 360, w: 690, size: 84, t: 38.9, html: true });
-  const items = [['info', 'فهم المنتج', ts('فهم', 0, 39)], ['flask', 'مكوناته', ts('ومكوناته')], ['pumpb', 'استخدامه', ts('واستخدامه')]];
-  items.forEach(([n, l, t], i) => { const y = 640 + i * 230;
-    sticker(sc, n, { x: 800, y, s: 1.7, t: t - .2, rot: [-4, 4, -3][i] }); pill(sc, l, { x: 190, y: y + 36, t: t + .1, w: 570 });
-    sticker(sc, 'check', { x: 50, y: y + 20, s: 1.2, t: t + .55, rot: 6, snd: 'chime', v: .55 }); }); }
-/* 13  suits your skin? */
-{ const sc = scene(43.6, 45.5);
-  sticker(sc, 'bottle', { x: 70, y: 470, s: 2.7, t: ts('المنتج', 0, 43.4) - .1, rot: -4 }); sticker(sc, 'face', { x: 730, y: 470, s: 2.7, t: ts('لبشرتك') - .1, rot: 4 });
-  sticker(sc, 'qmark', { x: 430, y: 470, s: 2.3, t: ts('مناسب') + .05, rot: 6, v: .8 });
-  const tn = ts('ولا'); sticker(sc, 'check', { x: 300, y: 860, s: 2.2, t: tn - .05, rot: -6, snd: 'chime', v: .7 }); sticker(sc, 'cross', { x: 600, y: 860, s: 2.2, t: ts('لأ') - .05, rot: 6, snd: 'pop' }); }
-/* 14  roadmap */
-{ const sc = scene(46.0, 48.45), xs = [840, 600, 360, 120], y = 760, tl0 = ts('آخر');
-  const rd = svg('path', { d: `M890 ${y}H70`, stroke: PLUM, 'stroke-width': 9, 'stroke-dasharray': '3 24', 'stroke-linecap': 'round', fill: 'none', opacity: 0 }, sc.g);
-  tl.set(rd, { opacity: .8 }, tl0 - .2);
-  xs.forEach((x, i) => { const t = i ? tl0 + .3 + i * .22 : 46.2; const c = svg('path', { d: C(x, y, 46), fill: i ? '#fff' : PINK, stroke: PLUM, 'stroke-width': 7 }, svg('g', { transform: `translate(0,0)`, opacity: 0 }, sc.g));
-    const gp = c.parentNode; tl.fromTo(gp, { opacity: 0, scale: .2, svgOrigin: `${x} ${y}` }, { opacity: 1, scale: 1, svgOrigin: `${x} ${y}`, duration: .45, ease: 'back.out(2.4)', immediateRender: false }, t); cue(t, 'pop', .5); });
-  sticker(sc, 'lipstick', { x: 760, y: 480, s: 1.7, t: 46.3, rot: -6 });
-  pill(sc, 'الآن', { x: 770, y: 890, t: 46.5, w: 140 });
-  [1, 2, 3].forEach(i => pill(sc, 'التالي', { x: xs[i] - 90, y: 890, t: tl0 + .55 + i * .2, w: 180 }));
-  sticker(sc, 'arrowUp', { x: 780, y: 1010, s: 1.6, t: ts('خطوة'), rot: 0, sparks: false }); }
-/* 15  better experience: bars topped with cosmetics */
-{ const sc = scene(48.52, 52.95), hs = [110, 200, 300, 410, 530], bx = [110, 300, 490, 680, 870], base = 1250, top = ['lipstick', 'compact', 'brush', 'perfume', 'heart'];
-  const tb = [ts('تجربة', 0, 48) + .1, ts('أفضل') - .1, ts('يوم', 0, 49.9), ts('بعد', 0, 49.9), ts('يوم', 1, 50)];
-  svg('path', { d: `M50 ${base}H1030`, stroke: PLUM, 'stroke-width': 8, 'stroke-linecap': 'round' }, sc.g);
-  hs.forEach((h, i) => { const r = svg('rect', { x: bx[i] - 65, y: base, width: 130, height: 0, rx: 26, fill: ['#FFB3C6', '#FFC9A8', '#FFE08A', '#BDEBD6', '#C7B8FF'][i], stroke: PLUM, 'stroke-width': 6 }, sc.g);
-    tl.fromTo(r, { attr: { y: base, height: 0 } }, { attr: { y: base - h, height: h }, duration: .55, ease: 'back.out(1.6)', immediateRender: false }, tb[i]); cue(tb[i], 'rise', .6);
-    sticker(sc, top[i], { x: bx[i] - 60, y: base - h - 130, s: 1.2, t: tb[i] + .4, rot: [-6, 5, -4, 6, -5][i], wig: 4, sparks: i == 4 });
-    pill(sc, 'DAY ' + (i + 1), { x: bx[i] - 75, y: base + 22, t: tb[i] + .3, w: 150, size: 38 }); });
-  sticker(sc, 'arrowUp', { x: 140, y: 380, s: 3, t: tb[4] + .4, rot: 0, sparks: false });
-  bubble(sc, 'خطوة بخطوة', { x: 40, y: 330, w: 520, size: 64, t: ts('خطوة', 0, 50.9), rot: -3, cls: 'pink' }); }
-/* 16  trust */
-{ const sc = scene(53.0, 55.32), tt = ts('ثقتكم');
-  const h = sticker(sc, 'heart', { x: 290, y: 400, s: 5, t: 53.15, rot: -3, snd: 'pop', v: .8, wig: 2 });
-  tl.to(h.pop, { scale: 1.08, duration: .35, yoyo: true, repeat: 5, ease: 'sine.inOut' }, 53.8);
-  [[100, 420], [800, 450], [130, 760], [780, 800]].forEach(([x, y], i) => sticker(sc, i % 2 ? 'spark' : 'star', { x, y, s: 1.2, t: 53.9 + i * .18, rot: 8, wig: 6, snd: 'sparkle', v: .4 }));
-  bubble(sc, '<span class="hl">ثقتكم</span>', { x: 90, y: 1030, w: 900, size: 130, t: tt - .1, html: true, rot: -2 }); cue(tt + .4, 'chime', .8); }
+/* Blankie x Glow offer - animated sticker-pop over the real product photo; his original voice. */
+/* ---- photo camera: slow Ken-Burns pans along the product line, whip to each product on its word ---- */
+const IMG = document.querySelector('#photo img'); gsap.set(IMG, { transformOrigin: '0 0' });
+const view = (t, c, z, d = .7, ease = 'power3.inOut') => tl.to(IMG, { x: Math.min(0, Math.max(1080 - 2399 * z, 540 - c * z)), y: 960 * (1 - z), scale: z, duration: d, ease }, t);
+tl.set(IMG, { x: -20, y: 0, scale: 1 }, 0);
+view(.4, 700, 1.04, 3, 'none'); view(4.87, 1000, 1.06, 1.0); view(5.9, 1100, 1.0, 1.4, 'none'); view(7.3, 420, 1.12, .9);
+view(9.0, 737, 1.12, .5); view(9.66, 1400, 1.08, .7); view(10.5, 973, 1.15, .5); view(11.66, 1942, 1.15, .6);
+view(12.85, 1900, 1.0, .5); view(13.4, 700, 1.0, 2.2, 'none'); view(15.66, 1200, 1.2, .6); view(17.8, 1610, 1.2, .7); view(19.12, 1942, 1.2, .5); view(19.8, 1435, 1.2, .5);
+view(20.95, 1700, 1.0, .8); view(22.95, 1200, 1.0, 3.0, 'none'); view(26.1, 1200, 1.08, .6); view(28.6, 2000, 1.0, .9);
+/* progress bar + flashes */
+const FL = document.createElement('div'); Object.assign(FL.style, { position: 'absolute', inset: 0, background: '#fff', opacity: 0, zIndex: 40, pointerEvents: 'none' }); document.body.appendChild(FL);
+const flash = (t, a = .5) => tl.fromTo(FL, { opacity: a }, { opacity: 0, duration: .26, ease: 'power2.out', immediateRender: false }, t);
+const PB = document.createElement('div'); Object.assign(PB.style, { position: 'absolute', left: 0, top: 0, height: '12px', width: '1080px', background: 'linear-gradient(90deg,#FF5C8A,#FFE066)', transformOrigin: '0 50%', zIndex: 50 }); document.body.appendChild(PB);
+tl.fromTo(PB, { scaleX: 0 }, { scaleX: 1, duration: 29.2, ease: 'none', immediateRender: false }, 0);
+[3.45, 4.87, 8.45, 12.89, 15.68, 17.84, 20.98, 22.95, 26.12].forEach(t => flash(t, .4));
+const logoCard = (sc, x, y, w, t) => { const card = div('', { position: 'absolute', left: x + 'px', top: y + 'px', width: w + 'px', padding: '22px 18px', background: '#fff', border: '6px solid ' + PLUM, borderRadius: '40px', boxShadow: '0 10px 0 ' + PLUM, opacity: 0 }, sc.wrap);
+  card.innerHTML = '<img src="../assets/logo_brand.png" style="width:100%;display:block">'; tl.fromTo(card, { opacity: 0, scale: .3, rotation: -8 }, { opacity: 1, scale: 1, rotation: -2, duration: .6, ease: 'back.out(2)', immediateRender: false }, t); cue(t, 'thud', .7); burst(sc, x + w / 2, y + 60, t + .1, 8, 260); };
+const star = (sc, cx, cy, t, R1 = 260, R2 = 200) => { const pts = []; for (let i = 0; i < 28; i++) { const r = i % 2 ? R2 : R1, a = i / 28 * 6.283; pts.push((cx + r * Math.cos(a)).toFixed(1) + ',' + (cy + r * Math.sin(a)).toFixed(1)); }
+  const s = svg('polygon', { points: pts.join(' '), fill: '#FF5C8A', stroke: '#fff', 'stroke-width': 12, 'stroke-linejoin': 'round', opacity: 0, style: 'filter:drop-shadow(0 14px 16px rgba(91,58,94,.4))' }, sc.g);
+  tl.fromTo(s, { opacity: 0, scale: .2, svgOrigin: `${cx} ${cy}` }, { opacity: 1, scale: 1, svgOrigin: `${cx} ${cy}`, duration: .45, ease: 'back.out(2.2)', immediateRender: false }, t); cue(t, 'thud', 1);
+  tl.to(s, { rotation: 6, svgOrigin: `${cx} ${cy}`, duration: 1.0, yoyo: true, repeat: 3, ease: 'sine.inOut' }, t + .4); };
 
-finish({ duration: 57.0, outroAt: 55.38 });
+/* 1 hook: looking for baby care */
+{ const sc = scene(.4, 3.18), t = ts('لطفلك');
+  sticker(sc, 'heart', { x: 60, y: 20, s: 2.0, t: ts('منتجات'), rot: -6 });
+  sticker(sc, 'bottle', { x: 820, y: 20, s: 2.0, t: ts('عناية'), rot: 6 });
+  bubble(sc, '<span class="hl">لطفلك</span>', { x: 270, y: 60, w: 540, size: 110, t, html: true, rot: -3, cls: 'pink' });
+  sticker(sc, 'qmark', { x: 800, y: 300, s: 1.6, t: ts('بأسعار'), rot: 8, v: .7 }); }
+/* 2 see this offer from Glow */
+{ const sc = scene(3.45, 4.7), tg = ts('Glow');
+  sticker(sc, 'eyes', { x: 60, y: 60, s: 1.8, t: ts('شوفي'), rot: -6 });
+  logoCard(sc, 400, 40, 580, tg); }
+/* 3 Blankie collection */
+{ const sc = scene(4.87, 8.2), tb = ts('Blankie');
+  bubble(sc, 'Blankie', { x: 190, y: 30, w: 700, size: 130, t: tb, cls: 'lat yel', rot: -3 });
+  sticker(sc, 'star', { x: 70, y: 270, s: 1.4, t: tb + .25, rot: -8 }); sticker(sc, 'heart', { x: 850, y: 270, s: 1.4, t: tb + .4, rot: 8 });
+  sticker(sc, 'burst', { x: 440, y: 250, s: 1.5, t: ts('متنوعة'), rot: 6, v: .6 });
+  pill(sc, 'شاور جل', { x: 380, y: 420, t: ts('الشاور'), w: 320 }); }
+/* 4 the range */
+{ const sc = scene(8.45, 11.36), it = [['washbottle', 'الشامبو', 'والشامبو'], ['jar', 'المرطبات', 'والمرطبات'], ['tube', 'كريم الحفاظ', 'وكريم'], ['sunscreen', 'واقي الشمس', 'وواقي']], xs = [50, 300, 550, 800];
+  it.forEach(([n, l, w], i) => { const t = ts(w); sticker(sc, n, { x: xs[i], y: 30, s: 1.7, t: t - .05, rot: [-5, 4, -4, 5][i] }); pill(sc, l, { x: xs[i] - 25, y: 235, t: t + .12, w: 240, size: 34 }); }); }
+/* 5 body oil */
+{ const sc = scene(11.66, 12.55);
+  sticker(sc, 'dropper', { x: 120, y: 20, s: 2.2, t: ts('وزيت') - .05, rot: -6 }); bubble(sc, 'زيت الجسم', { x: 340, y: 100, w: 640, size: 86, t: ts('الجسم') - .1, cls: 'pink', rot: 2 }); }
+/* 6 all Blankie products */
+{ const sc = scene(12.87, 15.45), tk = ts('كل'), tb2 = ts('Blankie', 1);
+  bubble(sc, 'كل <span class="hl">المنتجات</span>', { x: 90, y: 30, w: 900, size: 92, t: tk, html: true, rot: -2 });
+  sticker(sc, 'check', { x: 70, y: 220, s: 1.7, t: ts('شامل'), rot: -6, snd: 'chime', v: .7 });
+  bubble(sc, 'Blankie', { x: 400, y: 260, w: 560, size: 90, t: tb2, cls: 'lat yel', rot: 3 }); }
+/* 7 any product 100 */
+{ const sc = scene(15.66, 17.62), t1 = ts('بـ100');
+  star(sc, 540, 250, t1 - .1, 250, 190);
+  bubble(sc, '100', { x: 290, y: 150, w: 500, size: 170, t: t1 - .05, cls: 'lat yel', rot: -3 });
+  sticker(sc, 'magnifier', { x: 60, y: 10, s: 1.6, t: ts('تختاريه'), rot: -8 });
+  pill(sc, 'جنيه فقط', { x: 330, y: 440, t: ts('جنيه'), w: 420, size: 52 }); }
+/* 8 smaller items */
+{ const sc = scene(17.84, 20.76), it = [['tube', 'الكريم المرطب الصغير', ts('المرطب')], ['dropper', 'زيت الجسم', ts('وزيت', 1)], ['jar', 'كريم الحفاظ', ts('وكريم', 1)]], xs = [90, 420, 750];
+  it.forEach(([n, l, t], i) => { sticker(sc, n, { x: xs[i], y: 20, s: 1.9, t: t - .1, rot: [-5, 4, -4][i] }); pill(sc, l, { x: xs[i] - 40, y: 250, t: t + .15, w: 300, size: 30 }); }); }
+/* 9 price 65 */
+{ const sc = scene(20.98, 22.66), t1 = ts('65');
+  star(sc, 540, 250, t1 - .15, 250, 190);
+  bubble(sc, '65', { x: 290, y: 150, w: 500, size: 170, t: t1 - .1, cls: 'lat yel', rot: -3 });
+  pill(sc, 'جنيه', { x: 400, y: 440, t: ts('جنيه', 1), w: 280, size: 52 });
+  const cols = ['#FF5C8A', '#FFE066', '#7ADFC4', '#C7B8FF', '#fff']; let sd = 11; const rr = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < 36; i++) { const c = div('', { position: 'absolute', left: '540px', top: '250px', width: (14 + rr() * 16) + 'px', height: '10px', background: cols[i % 5], borderRadius: '3px', opacity: 0, border: '2px solid #fff' }, sc.wrap), a = rr() * 6.283, d = 260 + rr() * 380;
+    tl.fromTo(c, { opacity: 1, x: 0, y: 0, rotation: 0 }, { x: Math.cos(a) * d, y: Math.sin(a) * d + 160, rotation: rr() * 720 - 360, duration: 1.1 + rr() * .4, ease: 'power2.out', immediateRender: false }, t1); tl.to(c, { opacity: 0, duration: .3 }, t1 + 1.0 + rr() * .2); } }
+/* 10 more options */
+{ const sc = scene(22.95, 25.9), t = ts('اختيارات');
+  bubble(sc, '<span class="hl">اختيارات</span> أكتر', { x: 90, y: 30, w: 900, size: 92, t, html: true, rot: -2 });
+  ['star', 'heart', 'star'].forEach((n, i) => sticker(sc, n, { x: 130 + i * 300, y: 230, s: 1.4, t: ts('أكتر') + .1 + i * .2, rot: [-6, 5, -4][i] }));
+  pill(sc, 'أسعار تستاهل', { x: 270, y: 420, t: ts('وأسعار'), w: 540, size: 50 }); }
+/* 11 your right choice starts at Glow */
+{ const sc = scene(26.12, 29.1), t = ts('اختيارك'), tg = ts('Glow', 1);
+  bubble(sc, '<span class="hl">اختيارك</span> الصح', { x: 60, y: 30, w: 960, size: 96, t, html: true, rot: -2 });
+  sticker(sc, 'check', { x: 80, y: 230, s: 1.8, t: ts('الصح'), rot: -6, snd: 'chime', v: .8 });
+  sticker(sc, 'heart', { x: 820, y: 230, s: 1.6, t: tg, rot: 8 }); burst(sc, 540, 300, tg, 9, 260); cue(tg, 'chime', .9); }
+
+finish({ duration: 31.4, outroAt: 29.5 });
