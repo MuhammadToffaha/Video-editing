@@ -142,9 +142,25 @@ function pill(sc, txt, { x, y, t, w, size }) {
 }
 
 
+/* photo(sc, src, { x, y, w, h, t, rot, tape }) - polaroid-style photo card (product photo, screenshot, clip still), pops in on its word */
+function photo(sc, src, { x, y, w = 320, h = 400, t, rot = -4, tape = true }) {
+  const el = div('photo', { left: x + 'px', top: y + 'px', width: w + 'px', height: h + 'px' }, sc.wrap);
+  el.innerHTML = `<img src="${src}" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:14px">` + (tape ? '<i class="tape"></i>' : '');
+  tl.fromTo(el, { opacity: 0, scale: .4, y: 40, rotation: rot - 10 }, { opacity: 1, scale: 1, y: 0, rotation: rot, duration: .55, ease: 'back.out(2.2)', immediateRender: false }, t); cue(t, 'pop', .6); return el;
+}
+
 /* finish({ duration, outroAt }): logo watermark, brand outro, captions, seek. Call once at the end of scenes.js. */
-function finish({ duration, outroAt }) {
+function finish({ duration, outroAt, footage = false, framed = true }) {
   const OUT0 = outroAt;
+  if (footage) {                                  /* footage mode: speaker video card + camera moves (punch-ins / jump-cut zoom alternation) */
+    document.body.classList.add('footage'); if (!framed) document.body.classList.add('full');
+    const cam = document.getElementById('cam'), K = window.CAMERA;
+    if (K) { const f = K.face || [.5, .55]; cam.style.transformOrigin = `${f[0] * 100}% ${f[1] * 100}%`;
+      tl.set(cam, { scale: K.segs[0].z }, 0);
+      K.segs.forEach(g => { const d = g.d ?? .03, L = Math.max(.05, g.b - g.a);
+        if (g.soft) { tl.to(cam, { scale: g.z, duration: .22, ease: 'power3.inOut' }, g.a); tl.to(cam, { scale: g.z + d, duration: Math.max(.05, L - .22), ease: 'none' }, g.a + .22); }   // soft punch-in
+        else tl.fromTo(cam, { scale: g.z }, { scale: g.z + d, duration: L, ease: 'none', immediateRender: false }, g.a); }); }   // hard cut: zoom level flips instantly
+  }
   const wm = document.getElementById('wm');
   tl.to(wm, { opacity: .95, duration: .5 }, .6).to(wm, { opacity: 0, duration: .2 }, OUT0 - .13);
   /* ---------------- outro ---------------- */

@@ -8,7 +8,8 @@ for (const base of [process.env.PW_NODE_MODULES, '/opt/node-tools/node_modules/'
 }
 if (!chromium) { console.error('playwright not found: npm i playwright (or set PW_NODE_MODULES)'); process.exit(1); }
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const FPS = 30; let SRC_FRAMES = 0; try { SRC_FRAMES = fs.readdirSync(path.join(root, 'work/frames')).length; } catch {} const LAST = +(process.env.LAST_SRC_FRAME || SRC_FRAMES);
+const FPS = 30; let MAP = null; try { MAP = JSON.parse(fs.readFileSync(path.join(root, 'work/framemap.json'))); } catch {}   /* footage mode: output frame -> source frame number (jump cuts) */
+let SRC_FRAMES = 0; try { SRC_FRAMES = fs.readdirSync(path.join(root, 'work/frames')).length; } catch {} const LAST = +(process.env.LAST_SRC_FRAME || SRC_FRAMES);
 const browser = await chromium.launch({ args: ['--font-render-hinting=none', '--disable-lcd-text'] });
 const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
 page.on('pageerror', e => { console.error('PAGEERROR', e.message); process.exit(1); });
@@ -22,11 +23,11 @@ else {
   const [a, b, out] = [+process.argv[2], +process.argv[3], process.argv[4]];
   fs.mkdirSync(out, { recursive: true });
   for (let f = a; f < b; f++) {
-    const src = Math.min(f + 1, SRC_FRAMES, LAST);
+    const src = MAP ? MAP[Math.min(f, MAP.length - 1)] : Math.min(f + 1, SRC_FRAMES, LAST);
     const url = 'file://' + path.join(root, 'work/frames', `f_${String(src).padStart(5, '0')}.jpg`);
     await page.evaluate(async ([u, t]) => {
       const im = document.getElementById('bg');
-      if (im && im.dataset.u !== u) { im.src = u; im.dataset.u = u; await im.decode(); }
+      if (im && document.body.classList.contains('footage') && im.dataset.u !== u) { im.src = u; im.dataset.u = u; await im.decode(); }
       window.seek(t);
     }, [url, f / FPS]);
     await page.screenshot({ path: path.join(out, `${String(f).padStart(5, '0')}.jpg`), type: 'jpeg', quality: 95 });
