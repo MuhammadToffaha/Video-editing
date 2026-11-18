@@ -122,7 +122,7 @@ starts.forEach((a, i) => {
       <svg width="260" height="40" viewBox="0 0 260 40"><path class="ln" d="M10 20H240" stroke="#FF6F61" stroke-width="7" stroke-linecap="round" fill="none"/><path class="ar" d="M222 6L246 20L222 34" stroke="#FF6F61" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0"/></svg>
       <div class="tile lit d2 hid" style="width:200px;height:170px;font:900 74px Inter;padding:0">30</div></div>` });
   const t1 = ts('10'), t2 = ts('30');
-  pop($q(c, '.d1'), t1 - .05, { s: .5 }); draw($q(c, '.ln'), t1 + .3, .7); tl.to($q(c, '.ar'), { opacity: 1, duration: .15 }, t1 + .95);
+  pop($q(c, '.d1'), 31.55, { s: .5 }); draw($q(c, '.ln'), t1 + .3, .7); tl.to($q(c, '.ar'), { opacity: 1, duration: .15 }, t1 + .95);
   pop($q(c, '.d2'), t2 - .05, { s: .4, snd: 'chime' });
 }
 /* S11 heart: we pick the best (34.5-39.4) */
