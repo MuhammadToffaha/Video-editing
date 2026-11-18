@@ -1,0 +1,45 @@
+@font-face{font-family:Cairo;font-weight:900;src:url(fonts/cairo-arabic-900-normal.woff2);unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
+@font-face{font-family:Cairo;font-weight:800;src:url(fonts/cairo-arabic-800-normal.woff2);unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
+@font-face{font-family:Cairo;font-weight:900;src:url(fonts/cairo-latin-800-normal.woff2);unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:Cairo;font-weight:800;src:url(fonts/cairo-latin-800-normal.woff2);unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:"Baloo Bhaijaan 2";font-weight:700;src:url(fonts/baloo-bhaijaan-2-arabic-700-normal.woff2);unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
+@font-face{font-family:"Baloo Bhaijaan 2";font-weight:800;src:url(fonts/baloo-bhaijaan-2-arabic-800-normal.woff2);unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
+@font-face{font-family:"Baloo Bhaijaan 2";font-weight:700;src:url(fonts/baloo-bhaijaan-2-latin-700-normal.woff2);unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:"Baloo Bhaijaan 2";font-weight:800;src:url(fonts/baloo-bhaijaan-2-latin-800-normal.woff2);unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:"Bebas Neue";font-weight:400;src:url(fonts/bebas-neue-latin-400-normal.woff2)}
+:root{--plum:#5B3A5E;--pink:#FF5C8A;--rose:#FF9EBB;--yellow:#FFE066;--mint:#7ADFC4;--lav:#C7B8FF;--coral:#D9594C;--brand:#CD5A50}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden}
+/* soft pastel "healing" backdrop: pink -> cream -> lavender with faint dots */
+body{background:
+  radial-gradient(circle at 15% 12%,rgba(255,255,255,.85) 0,rgba(255,255,255,0) 32%),
+  radial-gradient(circle at 88% 70%,rgba(199,184,255,.55) 0,rgba(199,184,255,0) 40%),
+  radial-gradient(rgba(255,255,255,.55) 3px,transparent 3.5px) 0 0/54px 54px,
+  linear-gradient(180deg,#FFE0EA 0%,#FFF3E6 48%,#EDE5FF 100%)}
+svg{position:absolute;left:0;top:0}
+#stage{position:absolute;inset:0;font-family:"Baloo Bhaijaan 2",Cairo,sans-serif;color:var(--plum)}
+.sc{position:absolute;inset:0}
+/* text bubbles (sticker-style pills) */
+.bubw{position:absolute;display:flex;justify-content:center;opacity:0}
+.bub{padding:2px 36px 8px;border-radius:46px;background:#fff;border:6px solid var(--plum);box-shadow:0 9px 0 var(--plum);font:800 64px/1.25 "Baloo Bhaijaan 2",Cairo;color:var(--plum);white-space:nowrap}
+.bub.pink{background:var(--rose);color:#fff;-webkit-text-stroke:0}
+.bub.yel{background:var(--yellow)}
+.bub .hl{background:linear-gradient(transparent 58%,var(--yellow) 58%);padding:0 6px}
+.bub.lat{font-family:"Bebas Neue";font-weight:400;letter-spacing:.04em}
+.card{position:absolute;left:70px;width:940px;height:150px;border-radius:48px;border:6px solid var(--plum);box-shadow:0 9px 0 var(--plum);display:flex;align-items:center;padding:0 30px;gap:26px;opacity:0;direction:ltr}
+.card .no{width:92px;height:92px;border-radius:50%;background:#fff;border:6px solid var(--plum);font:800 62px/80px "Baloo Bhaijaan 2";text-align:center;color:var(--pink)}
+.card .nm{flex:1;font:400 92px/1 "Bebas Neue";letter-spacing:.04em;color:var(--plum);text-align:left}
+.card.dash{border-style:dashed;box-shadow:none;background:rgba(255,255,255,.6)!important}
+.card .nm.ar{font:800 70px/1.1 "Baloo Bhaijaan 2",Cairo;direction:rtl;text-align:left}
+.pill{position:absolute;opacity:0;padding:0 24px 4px;border-radius:40px;background:#fff;border:5px solid var(--plum);box-shadow:0 7px 0 var(--plum);font:800 50px/1.25 "Baloo Bhaijaan 2",Cairo;color:var(--plum);white-space:nowrap}
+#wm{position:absolute;left:395px;top:70px;width:290px;opacity:0;filter:drop-shadow(0 0 .7px #CD5A50) drop-shadow(0 0 .7px #CD5A50)}
+/* captions: Korean variety-show style - fat outlined text, key words in yellow, active word pops pink */
+#caps{z-index:5;position:absolute;left:0;top:1520px;width:1080px;height:230px}
+.chunk{position:absolute;left:30px;right:30px;top:0;display:flex;direction:rtl;justify-content:center;flex-wrap:nowrap;gap:0 22px;opacity:0;
+ font:900 74px/1.25 Cairo,sans-serif}
+.w{display:inline-block;position:relative;white-space:nowrap;color:#fff;padding:0 4px;transform-origin:50% 70%;
+ -webkit-text-stroke:10px var(--plum);paint-order:stroke fill;text-shadow:0 6px 0 var(--plum);margin:0 6px}
+.w.k{color:var(--yellow)}
+.w .t{position:relative}
+#outro{position:absolute;inset:0;background:var(--brand);clip-path:inset(100% 0 0 0)}
+#outro img{position:absolute;left:150px;top:830px;width:780px;opacity:0}
