@@ -16,7 +16,7 @@ const logoCard = (sc, t, top, w = 600) => {
   logoCard(sc, ts('جلوكوزمتكس') - .05, 980, 560); }
 /* 3  hair care + skin care */
 { const sc = scene(5.46, 8.95), th = ts('بالشعر'), tb = ts('بالبشرة');
-  sticker(sc, 'brush', { x: 60, y: 420, s: 3.6, t: th - .1, rot: -6 }); sticker(sc, 'face', { x: 600, y: 420, s: 3.6, t: tb - .1, rot: 6 });
+  sticker(sc, 'brush', { x: 60, y: 420, s: 3.6, t: 5.6, rot: -6 }); sticker(sc, 'face', { x: 600, y: 420, s: 3.6, t: tb - .1, rot: 6 });
   bubble(sc, 'بالشعر', { x: 60, y: 900, w: 440, size: 84, t: th, rot: -3 }); bubble(sc, 'بالبشرة', { x: 580, y: 900, w: 440, size: 84, t: tb, cls: 'pink', rot: 3 }); }
 /* 4  the November offer */
 { const sc = scene(9.06, 12.5), t = ts('عرض', 0, 9);
